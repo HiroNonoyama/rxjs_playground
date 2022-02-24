@@ -8,17 +8,17 @@ const mouseDown = fromEvent(box, "mousedown");
 
 mouseDown
   .pipe(
-    mergeMap((e) =>
+    mergeMap(() =>
       mouseMove.pipe(
         takeUntil(mouseUp),
-        throttle(() => interval(20))
+        throttle(() => interval(10))
       )
     )
   )
   .subscribe((e) => {
-    box.style.left = e.pageX;
-    box.style.top = e.pageY;
+    box.style.left = e.pageX - 50;
+    box.style.top = e.pageY - 50;
   });
 
-mouseDown.subscribe((e) => console.log("mousedown happend"));
-mouseUp.subscribe((e) => console.log("mouseup happend"));
+mouseDown.subscribe(() => console.log("fire mousedown"));
+mouseUp.subscribe(() => console.log("fire mouseup"));
